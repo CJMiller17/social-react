@@ -20,6 +20,7 @@ import NewsFeed from './NewsFeed.jsx'
 import RegisterPage from './RegisterPage.jsx'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import { ChakraProvider } from '@chakra-ui/react'
 
 function Layout() {
   return (
@@ -62,9 +63,11 @@ const router = createBrowserRouter([
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <SocialMediaProvider>
-    <AuthContextProvider>
-      <RouterProvider router={router} />
-    </AuthContextProvider>
-  </SocialMediaProvider>
+  <ChakraProvider>
+    <SocialMediaProvider>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </SocialMediaProvider>
+  </ChakraProvider>
 );

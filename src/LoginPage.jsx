@@ -8,8 +8,8 @@ export default function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    const submit = () => {
-        getToken( {setAccessToken, username, password} )
+  const submit = () => {
+        getToken({ setAccessToken, username, password })
     }
 
     return (
@@ -21,6 +21,7 @@ export default function Login() {
           type="text"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
+          required
         />
 
         <div>Password:</div>
@@ -28,6 +29,7 @@ export default function Login() {
           type="text"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          required
         />
 
         <div>

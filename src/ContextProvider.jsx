@@ -6,7 +6,7 @@ export const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
     const tempToken = JSON.parse(localStorage.getItem("token"))
-    const [accessToken, setAccessToken] = useState(tempToken ? tempToken : [])
+    const [accessToken, setAccessToken] = useState(tempToken ? tempToken : "")
 
     useEffect(() => {
         localStorage.setItem("token", JSON.stringify(accessToken))
