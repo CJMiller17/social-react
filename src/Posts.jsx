@@ -32,7 +32,6 @@ const Post = ({ setPosts, postId, username, userImage, userTitle, postContent, p
   const [liked, setLiked] = useState(initialLiked)
 
   const handleDelete = () => {
-      console.log("Post ID, Username: ", postId, username, userTitle, accessToken)
     deletePost({ postId, accessToken })
       .then(() => getPost({accessToken}).then(response => setPosts(response.data)))
         toast({
@@ -47,7 +46,6 @@ const Post = ({ setPosts, postId, username, userImage, userTitle, postContent, p
   const handleLike = () => {
     likePostOrComment({ accessToken, postId })
       .then(response => {
-        console.log("Like Params: ", response);
         setLiked(response.data.is_liked);
       })
     .catch(error => console.log("Error Liking this: ", error))

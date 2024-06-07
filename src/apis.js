@@ -4,8 +4,6 @@ import axios from "axios"
 export const baseURL = "http://127.0.0.1:8000"
 
 export const getToken = ( { setAccessToken, username, password} ) => {
-    console.log("username: ", username)
-    console.log("password: ", password)
     axios.post(`${baseURL}/token/`, {
         username: username,
         password: password
@@ -15,7 +13,6 @@ export const getToken = ( { setAccessToken, username, password} ) => {
         }
     })
     .then(response => {
-        console.log("Token Received: ", response)
         setAccessToken(response.data.access)
     })
     .catch(error => {
@@ -49,7 +46,6 @@ export const createUser = ({firstName, lastName, username, password, title }) =>
 };
 
 export const createPost = async ({ postContent, accessToken }) => {
-  console.log("Access Token: ", accessToken)
   return axios
     .post(
       `${baseURL}/post/create/`,
@@ -92,13 +88,11 @@ export const getPost = async ({ accessToken }) => {
 };
 
 export const deletePost = ({ postId, accessToken }) => {
-  console.log("deletePost: ", postId)
   return axios.delete(`${baseURL}/post/delete/${postId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
   }).then((response) => {
-    console.log("This post has been deleted: ", response)
     return response
   })
 }

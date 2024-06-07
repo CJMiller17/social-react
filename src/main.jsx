@@ -20,6 +20,7 @@ import NewsFeed from './NewsFeed.jsx'
 import RegisterPage from './RegisterPage.jsx'
 import Header from './Header.jsx'
 import Footer from './Footer.jsx'
+import ProtectedRoute from "./ProtectedRoute";
 import { ChakraProvider } from '@chakra-ui/react'
 
 function Layout() {
@@ -41,19 +42,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <NewsFeed />,
+        element: (
+          <ProtectedRoute>
+            <NewsFeed />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
         element: <LoginPage />,
       },
       {
-        path: "/newsfeed",
-        element: <NewsFeed />,
-      },
-      {
         path: "/register",
-        element: <RegisterPage />,
+        element: (
+            <RegisterPage /> 
+        ),
       },
     ],
   },

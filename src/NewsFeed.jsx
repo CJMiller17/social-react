@@ -30,10 +30,6 @@ export default function NewsFeed() {
             });
         }
     }, [accessToken]);
-
-    // const handleDelete = (postId) => {
-    //     setPosts((currentPosts) => currentPosts.filter((post) => post.id !== postId))
-    // }
     
     const submit = () => {
         createPost({ postContent, accessToken })
@@ -83,7 +79,6 @@ export default function NewsFeed() {
             postContent={post.content}
             postImage={post.image}
             postDate={post.updated}
-            // onDelete={() => handleDelete(post.id)}
             postId={post.id}
             setPosts={setPosts}
             initialLiked={post.is_liked}

@@ -8,8 +8,6 @@ const getToken = ({
   username,
   password,
 }) => {
-  console.log("username: ", username);
-  console.log("password: ", password);
   axios
     .post(
       `${baseURL}/token/`,
@@ -24,7 +22,6 @@ const getToken = ({
       }
     )
     .then((response) => {
-      console.log("response: ", response);
       setAccessToken(response.data.access);
     })
     .catch((error) => {

@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./ContextProvider";
 import { createUser } from "./apis";
-// import {Button} from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { Input, Stack, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 import {ArrowForwardIcon} from "@chakra-ui/icons"
 
