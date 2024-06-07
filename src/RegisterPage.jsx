@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./ContextProvider";
 import { createUser } from "./apis";
-import Button from 'react-bootstrap/Button';
+// import {Button} from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Input, Stack, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
+import {ArrowForwardIcon} from "@chakra-ui/icons"
 
 export default function Register() {
   const { setAccessToken } = useContext(AuthContext);
@@ -10,86 +12,91 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [title, setTitle] = useState("")
 
   const submit = () => {
-    createUser({ firstName, lastName, username, password });
+    createUser({ firstName, lastName, username, password, title });
   };
 
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);  
+
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>User Name:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter Username"
+    <>
+      <Stack spacing={3}>
+        <Input
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           required
+          variant="filled"
+          size="lg"
+          color="teal"
+          placeholder="Username"
+          _placeholder={{ opacity: 0.3, color: "blue" }}
         />
-        <Form.Text className="text-muted">
-          
-        </Form.Text>
-      </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          required
-        />
-      </Form.Group>
+        <InputGroup size="md">
+          <Input
+            pr="4.5rem"
+            type={show ? "text" : "password"}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+            variant="filled"
+            size="lg"
+            color="teal"
+            placeholder="Password"
+            _placeholder={{ opacity: 0.4, color: "blue" }}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handleClick}>
+              {show ? "Hide" : "Show"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
 
-      <Form.Group className="mb-3" controlId="formBasicFirstName">
-        <Form.Label>First Name:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="First Name"
+        <Input
           onChange={(e) => setFirstName(e.target.value)}
           value={firstName}
           required
+          variant="filled"
+          size="lg"
+          color="teal"
+          placeholder="First Name"
+          _placeholder={{ opacity: 0.5, color: "blue" }}
         />
-        <Form.Text className="text-muted">
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicLastName">
-        <Form.Label>Last Name:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter Last Name"
+        <Input
           onChange={(e) => setLastName(e.target.value)}
           value={lastName}
           required
+          variant="filled"
+          size="lg"
+          color="teal"
+          placeholder="Last Name"
+          _placeholder={{ opacity: 0.6, color: "blue" }}
         />
-        <Form.Text className="text-muted">
-        </Form.Text>
-      </Form.Group>
+        <Input
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+          variant="filled"
+          size="lg"
+          color="teal"
+          placeholder="Title or desc. below your avatar"
+          _placeholder={{ opacity: 0.7, color: "blue" }}
+        />
+      </Stack>
 
-      <Form.Group className="mb-3" controlId="formBasicTitle">
-        <Form.Label>Job Title:</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Few words below avatar image"
-          // onChange={(e) => setLastName(e.target.value)}
-          // value={lastName}
-          // required
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Show Password" />
-      </Form.Group>
       <Button
-        variant="primary"
+        m="1em"
+        rightIcon={<ArrowForwardIcon />}
+        colorScheme="blue"
+        variant="outline"
         type="submit"
         onClick={() => submit()}
       >
         Submit
       </Button>
-    </Form>
+    </>
   );
 }
 

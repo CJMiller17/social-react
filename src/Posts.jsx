@@ -19,21 +19,22 @@ import {
 } from "@chakra-ui/react";
 import { BsThreeDotsVertical } from "react-icons/bs"
 import { BiLike, BiChat, BiShare } from "react-icons/bi";
-import { useEffect } from "react";
-import { baseURL, deletePost } from "./apis";
+import { useContext, useEffect, useState } from "react";
+import { baseURL, deletePost, getPost, likePostOrComment } from "./apis";
 import { formatDistanceToNow, parseISO } from "date-fns";
-// 
+import {AuthContext} from "./ContextProvider"
 
-const Post = ({ postId, username, userImage, userTitle, postContent, postImage, postDate, onDelete }) => {
-    useEffect(() => { console.log("USERNAME", username) }, [])
+const Post = ({ setPosts, postId, username, userImage, userTitle, postContent, postImage, postDate, initialLiked }) => {
     
-    const formattedDate = formatDistanceToNow(parseISO(postDate), { addSuffix: true })
-    const toast = useToast()
+  const formattedDate = formatDistanceToNow(parseISO(postDate), { addSuffix: true })
+  const toast = useToast()
+  const { accessToken } = useContext(AuthContext);
+  const [liked, setLiked] = useState(initialLiked)
 
-    const handleDelete = () => {
-        if (onDelete) {
-            onDelete()
-        }
+  const handleDelete = () => {
+      console.log("Post ID, Username: ", postId, username, userTitle, accessToken)
+    deletePost({ postId, accessToken })
+      .then(() => getPost({accessToken}).then(response => setPosts(response.data)))
         toast({
             title: "Post Deleted",
             description: "The post has been deleted successfully",
@@ -41,10 +42,26 @@ const Post = ({ postId, username, userImage, userTitle, postContent, postImage, 
             duration: 3000,
             isClosable: true
         })
-    }
+  }
+  
+  const handleLike = () => {
+    likePostOrComment({ accessToken, postId })
+      .then(response => {
+        console.log("Like Params: ", response);
+        setLiked(response.data.is_liked);
+      })
+    .catch(error => console.log("Error Liking this: ", error))
+  }
 
     return (
-      <Card maxW="md">
+      <Card
+        boxShadow="dark-lg"
+        maxW="md"
+        m="auto"
+        mb="2rem"
+        color="white"
+        bg="#2C5282"
+      >
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -55,18 +72,19 @@ const Post = ({ postId, username, userImage, userTitle, postContent, postImage, 
                 <Text>{userTitle}</Text>
                 <Text>{formattedDate}</Text>
               </Box>
-                    </Flex>
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            variant="ghost"
-                            colorScheme="gray"
-                            icon={<BsThreeDotsVertical/>}
-                        />
-                            <MenuList>
-                                <MenuItem onClick={handleDelete}>Delete Post</MenuItem>
-                            </MenuList>
-                    </Menu>
+            </Flex>
+            <Menu>
+              <MenuButton
+                color="white"
+                as={IconButton}
+                variant="ghost"
+                colorScheme="gray"
+                icon={<BsThreeDotsVertical />}
+              />
+              <MenuList>
+                <MenuItem color="red" onClick={handleDelete}>Delete Post</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </CardHeader>
         <CardBody>
@@ -92,13 +110,19 @@ const Post = ({ postId, username, userImage, userTitle, postContent, postImage, 
             },
           }}
         >
-          <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
+          <Button
+            onClick={handleLike}
+            color="white"
+            flex="1"
+            variant="ghost"
+            leftIcon={<BiLike color={liked ? "blue" : "white"} />}
+          >
             Like
           </Button>
-          <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
+          <Button color="white" flex="1" variant="ghost" leftIcon={<BiChat />}>
             Comment
           </Button>
-          <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
+          <Button color="white" flex="1" variant="ghost" leftIcon={<BiShare />}>
             Share
           </Button>
         </CardFooter>

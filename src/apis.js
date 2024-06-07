@@ -23,7 +23,7 @@ export const getToken = ( { setAccessToken, username, password} ) => {
     })
 }
 
-export const createUser = ({firstName, lastName, username, password }) => {
+export const createUser = ({firstName, lastName, username, password, title }) => {
   axios
     .post(
       `${baseURL}/profile/create/`,
@@ -31,7 +31,8 @@ export const createUser = ({firstName, lastName, username, password }) => {
         username: username,
         password: password,
         first_name: firstName,
-        last_name : lastName
+        last_name: lastName,
+        title: title
       },
       {
         headers: {
@@ -49,7 +50,7 @@ export const createUser = ({firstName, lastName, username, password }) => {
 
 export const createPost = async ({ postContent, accessToken }) => {
   console.log("Access Token: ", accessToken)
-  axios
+  return axios
     .post(
       `${baseURL}/post/create/`,
       {
@@ -96,6 +97,9 @@ export const deletePost = ({ postId, accessToken }) => {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
+  }).then((response) => {
+    console.log("This post has been deleted: ", response)
+    return response
   })
 }
 
@@ -113,4 +117,17 @@ export const createImage = ({ accessToken, image }) => {
   return axios({
     method: "post"
   })
+}
+
+export const likePostOrComment = ({accessToken, postId}) => {
+  const like = postId ? {post_id: postId} : {comment_id: commentId}
+  return axios({
+    method: "post",
+    url: `${baseURL}/like/create/`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json"
+    },
+    data : like
+  })  
 }

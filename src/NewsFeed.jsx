@@ -1,8 +1,17 @@
 import React, { useContext, useState, useEffect } from "react"
 import { AuthContext } from "./ContextProvider"
 import { createPost, getPost } from "./apis"
-import { FaCirclePlus } from "react-icons/fa6";
+import { GiBigWave } from "react-icons/gi";
 import Post from "./Posts"
+import {
+  Input,
+  Stack,
+  InputGroup,
+  InputRightElement,
+  Button,
+  InputLeftElement,
+  IconButton,
+} from "@chakra-ui/react";
 
 export default function NewsFeed() {
 
@@ -22,9 +31,9 @@ export default function NewsFeed() {
         }
     }, [accessToken]);
 
-    const handleDelete = (postId) => {
-        setPosts((currentPosts) => currentPosts.filter((post) => post.id !== postId))
-    }
+    // const handleDelete = (postId) => {
+    //     setPosts((currentPosts) => currentPosts.filter((post) => post.id !== postId))
+    // }
     
     const submit = () => {
         createPost({ postContent, accessToken })
@@ -44,21 +53,26 @@ export default function NewsFeed() {
     return (
       <div>
         <hr />
-        THE MUFFIN MAN!!
+        <h1>Welcome to Splash Social</h1>
         <hr />
         <hr />
-        Create New Post
-        <div>Penny for your thoughts:</div>
-        <input
-          type="text"
-          onChange={(e) => setPostContent(e.target.value)}
-          value={postContent}
-        />
-        <div>
-          <button onClick={() => submit()}>
-            <FaCirclePlus />
-          </button>
-        </div>
+        <InputGroup>
+          <InputLeftElement h="100%" pb=".4em">
+            <IconButton size="lg" onClick={() => submit()} colorScheme="blue">
+              <GiBigWave />
+            </IconButton>
+          </InputLeftElement>
+          <Input
+            m="1rem"
+            type="text"
+            variant="flushed"
+            onChange={(e) => setPostContent(e.target.value)}
+            value={postContent}
+            placeholder="Make a Ripple"
+            _placeholder={{ opacity: 0.3, color: "blue" }}
+          />
+        </InputGroup>
+
         <hr />
         {posts.map((post, index) => (
           <Post
@@ -69,7 +83,10 @@ export default function NewsFeed() {
             postContent={post.content}
             postImage={post.image}
             postDate={post.updated}
-            onDelete={() => handleDelete(post.id)}
+            // onDelete={() => handleDelete(post.id)}
+            postId={post.id}
+            setPosts={setPosts}
+            initialLiked={post.is_liked}
           />
         ))}
       </div>
