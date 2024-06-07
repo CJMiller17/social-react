@@ -26,6 +26,7 @@ import {AuthContext} from "./ContextProvider"
 
 const Post = ({ setPosts, postId, username, userImage, userTitle, postContent, postImage, postDate, initialLiked }) => {
     
+  console.log(initialLiked)
   const formattedDate = formatDistanceToNow(parseISO(postDate), { addSuffix: true })
   const toast = useToast()
   const { accessToken } = useContext(AuthContext);

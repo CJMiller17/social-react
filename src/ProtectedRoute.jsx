@@ -7,19 +7,20 @@ import { useToast } from "@chakra-ui/react";
 
 const ProtectedRoute = ({ children }) => {
   const { accessToken } = useContext(AuthContext);
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const toast = useToast();
 
-  useEffect(() => {
-    if (accessToken) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [accessToken]);
+
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     setIsAuthenticated(true);
+  //   } else {
+  //     setIsAuthenticated(false);
+  //   }
+  // }, [accessToken]);
 
 
-    if (!isAuthenticated) {
+    if (!accessToken) {
     toast({
       title: "Login Required",
       description: "Please swim towards the login page!",

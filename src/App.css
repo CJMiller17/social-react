@@ -6,7 +6,6 @@
 }
 
 button {
-  background-color: antiquewhite;
   font-family: "Indie Flower", cursive;
   font-weight: 400;
   font-style: normal;
@@ -65,4 +64,9 @@ input::placeholder {
   font-weight: 900;
   font-style: normal;
   font-size: larger;
+}
+
+html {
+  background-color: #4299E1;
+  background-image: url("./assets/manu-schwendener-DSwBHyWKiVw-unsplash.jpg");
 }

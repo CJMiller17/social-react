@@ -22,6 +22,7 @@ import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 import ProtectedRoute from "./ProtectedRoute";
 import { ChakraProvider } from '@chakra-ui/react'
+import Theme from './CustomTheme.jsx'
 
 function Layout() {
   return (
@@ -66,7 +67,7 @@ const router = createBrowserRouter([
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ChakraProvider>
+  <ChakraProvider theme={Theme}>
     <SocialMediaProvider>
       <AuthContextProvider>
         <RouterProvider router={router} />

@@ -71,6 +71,7 @@ export default function NewsFeed() {
 
         <hr />
         {posts.map((post, index) => (
+          console.log(post, post.is_liked),
           <Post
             key={index}
             username={post.profile.user.username}
@@ -81,7 +82,7 @@ export default function NewsFeed() {
             postDate={post.updated}
             postId={post.id}
             setPosts={setPosts}
-            initialLiked={post.is_liked}
+            initialLiked={post.liked_posts.includes({user: post.profile.id})}
           />
         ))}
       </div>
