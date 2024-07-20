@@ -1,15 +1,13 @@
 // DEPENDENCIES
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
   RouterProvider,
-  Outlet
 } from 'react-router-dom'
 
 // CSS
 import './App.css'
-import "react-bootstrap"
 import { AuthContextProvider, SocialMediaProvider } from './ContextProvider.jsx'
 
 // COMPONENTS
@@ -38,15 +36,15 @@ function Layout() {
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <NewsFeed />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {

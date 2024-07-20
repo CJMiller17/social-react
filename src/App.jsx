@@ -1,32 +1,16 @@
-import axios from "axios";
-// import "./App.css"
-const baseURL = "http://127.0.0.1:8000";
+import React from "react"
+import { Outlet } from "react-router-dom"
+import "./App.css"
 
-const getToken = ({
-  accessToken,
-  setAccessToken,
-  username,
-  password,
-}) => {
-  axios
-    .post(
-      `${baseURL}/token/`,
-      {
-        username: username,
-        password: password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-    .then((response) => {
-      setAccessToken(response.data.access);
-    })
-    .catch((error) => {
-      console.log("Error: ", error);
-    });
-};
+const App = () => {
+  return (
+    <div>
+      <div className="background"></div>
+      <div className="content">
+        <Outlet />
+      </div>
+    </div>
+  )
+}
 
-export default getToken
+export default App
