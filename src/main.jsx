@@ -22,6 +22,7 @@ import Footer from './Footer.jsx'
 import ProtectedRoute from "./ProtectedRoute";
 import { ChakraProvider } from '@chakra-ui/react'
 import Theme from './CustomTheme.jsx'
+import HomePage from "./HomePage.jsx"
 
 function Layout() {
   return (
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-            <NewsFeed />
+            <HomePage />
         ),
       },
       {
