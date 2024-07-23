@@ -43,9 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <ProtectedRoute>
             <NewsFeed />
-          </ProtectedRoute>
         ),
       },
       {
@@ -54,8 +52,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "/newsfeed",
         element: (
-            <RegisterPage /> 
+          <ProtectedRoute>
+            <NewsFeed />
+          </ProtectedRoute>
         ),
       },
     ],

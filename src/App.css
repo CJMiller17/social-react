@@ -1,12 +1,12 @@
 html {
   background-color: #79bbc8;
+  background: url("src/assets/waves.png") no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  filter: url("#turbulence");
 }
 
 body {
   font-family: "Indie Flower", cursive;
-  background: url("src/assets/waves.png") no-repeat center;
-  background-size: cover;
-  background-attachment: fixed;
-  filter: url("#turbulence");
-  height: 100%;
 }
