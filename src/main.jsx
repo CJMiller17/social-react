@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
 } from 'react-router-dom'
 
@@ -36,15 +37,15 @@ function Layout() {
 
 const router = createBrowserRouter([
   {
-    element: <App />,
+    element: <Outlet />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: (
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <NewsFeed />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         ),
       },
       {

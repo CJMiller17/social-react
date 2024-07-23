@@ -46,7 +46,6 @@ export default function NewsFeed() {
         <hr />
         <h1>Welcome to Splash Social</h1>
         <hr />
-        <hr />
 
         <InputGroup>
           <InputLeftElement h="100%" pb=".4em">
