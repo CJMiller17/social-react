@@ -26,11 +26,14 @@ import HomePage from "./HomePage.jsx"
 
 function Layout() {
   return (
-    <div id="app">
-      <Header />
-      <main id="page-content">
-        <Outlet />
-      </main>
+    <>
+      <div id="app">
+        <Header />
+        <main id="page-content">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
       <div className="water-effect">
         <div className="water"></div>
         <svg>
@@ -51,8 +54,7 @@ function Layout() {
           </filter>
         </svg>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }
 
