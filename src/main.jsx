@@ -38,7 +38,7 @@ function Layout() {
 
 const router = createBrowserRouter([
   {
-    element: <Outlet />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
