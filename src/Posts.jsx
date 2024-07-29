@@ -81,7 +81,20 @@ const Post = ({ setPosts, postId, username, userImage, userTitle, postContent, p
                 icon={<BsThreeDotsVertical />}
               />
               <MenuList>
-                <MenuItem color="red" onClick={handleDelete}>Delete Post</MenuItem>
+                <MenuItem color="red" onClick={handleDelete}>
+                  Delete Post
+                </MenuItem>
+                <MenuItem color="#2C5282" onClick={handleDelete}>
+                  Edit Post
+                </MenuItem>
+              </MenuList>
+              <MenuList>
+                <MenuItem color="red" onClick={handleDelete}>
+                  Block User
+                </MenuItem>
+                <MenuItem color="#2C5282" onClick={handleDelete}>
+                  Hide Post
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>

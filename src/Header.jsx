@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 
 function Header() {
   return (
-    <div style={{ margin: 10 }}>
+    <div style={{ margin: 10, display: "none"}}>
       <ButtonGroup spacing="6">
         <Button size="lg" colorScheme="blue">
           <Link style={{ marginRight: 20 }} to="/">

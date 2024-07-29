@@ -7,16 +7,10 @@ import {
   Flex,
   Box,
   Heading,
-  IconButton,
   Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  useToast,
 } from "@chakra-ui/react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiLike, BiChat, BiShare } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -33,8 +27,9 @@ const HomePage = () => {
         <CardHeader>
           <Flex spacing="4">
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-              <Box>
-                <Heading size="sm">Splash Social</Heading>
+              <Box className="splash-social">
+                <h2 fontSize="8rem">Splash</h2>
+                <h2 fontSize="8rem">Splash</h2>
               </Box>
             </Flex>
           </Flex>
@@ -51,13 +46,34 @@ const HomePage = () => {
             },
           }}
         >
-          <Button color="white" flex="1" variant="ghost">
+          <Button
+            color="white"
+            flex="1"
+            variant="ghost"
+            leftIcon={<BiChat />}
+            as={Link}
+            to="/login"
+          >
             Login
           </Button>
-          <Button color="white" flex="1" variant="ghost" leftIcon={<BiChat />}>
+          <Button
+            color="white"
+            flex="1"
+            variant="ghost"
+            leftIcon={<BiChat />}
+            as={Link}
+            to="/register"
+          >
             Register
           </Button>
-          <Button color="white" flex="1" variant="ghost" leftIcon={<BiShare />}>
+          <Button
+            color="white"
+            flex="1"
+            variant="ghost"
+            leftIcon={<BiShare />}
+            as={Link}
+            to="/about"
+          >
             About
           </Button>
         </CardFooter>

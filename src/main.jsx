@@ -13,7 +13,6 @@ import { AuthContextProvider, SocialMediaProvider } from './ContextProvider.jsx'
 
 // COMPONENTS
 import ErrorPage from './ErrorPage.jsx'
-import App from './App.jsx'
 import LoginPage from './LoginPage.jsx'
 import NewsFeed from './NewsFeed.jsx'
 import RegisterPage from './RegisterPage.jsx'
@@ -23,6 +22,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { ChakraProvider } from '@chakra-ui/react'
 import Theme from './CustomTheme.jsx'
 import HomePage from "./HomePage.jsx"
+import AboutPage from './AboutPage.jsx'
 
 function Layout() {
   return (
@@ -38,10 +38,10 @@ function Layout() {
         <div className="water"></div>
         <svg>
           <filter id="turbulence" x="0" y="0" width="100%" height="100%">
-            <feTurbulence id="water-filter" numOctaves="3"></feTurbulence>
+            <feTurbulence id="water-filter" numOctaves="1" baseFrequency=".2"></feTurbulence>
             <feDisplacementMap
               in="SourceGraphic"
-              scale="20"
+              scale="12"
             ></feDisplacementMap>
             <animate
               xlinkHref="#water-filter"
@@ -82,6 +82,10 @@ const router = createBrowserRouter([
             <NewsFeed />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
     ],
   },

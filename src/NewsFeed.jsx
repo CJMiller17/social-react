@@ -8,6 +8,8 @@ import {
   InputGroup,
   InputLeftElement,
   IconButton,
+  Heading,
+  Box,
 } from "@chakra-ui/react";
 
 export default function NewsFeed() {
@@ -42,15 +44,11 @@ export default function NewsFeed() {
     }
  
     return (
-      <div>
-        <hr />
-        <h1>Welcome to Splash Social</h1>
-        <hr />
-
-        <InputGroup>
+      <Box>
+        <InputGroup m={10}>
           <InputLeftElement h="100%" pb=".4em">
-            <IconButton size="lg" onClick={() => submit()} colorScheme="blue">
-              <GiBigWave />
+            <IconButton size="lg" onClick={() => submit()} bg="#2C5282">
+              <GiBigWave color="white"/>
             </IconButton>
           </InputLeftElement>
           <Input
@@ -60,11 +58,10 @@ export default function NewsFeed() {
             onChange={(e) => setPostContent(e.target.value)}
             value={postContent}
             placeholder="Make a Ripple"
-            _placeholder={{ opacity: 0.6, color: "white" }}
+            _placeholder={{ opacity: 1, color: "white", fontWeight: "bolder" }}
           />
         </InputGroup>
 
-        <hr />
         {posts.map((post, index) => (
           <Post
             key={index}
@@ -79,6 +76,6 @@ export default function NewsFeed() {
             initialLiked={post.liked_posts.includes({ user: post.profile.id })}
           />
         ))}
-      </div>
+      </Box>
     );
 }
