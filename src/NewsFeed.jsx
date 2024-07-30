@@ -17,47 +17,74 @@ import {
 import { RiImageAddFill } from "react-icons/ri";
 import { MdAddLocationAlt } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 
 export default function NewsFeed() {
     const { accessToken } = useContext(AuthContext)
     const [postContent, setPostContent] = useState("")
     const [posts, setPosts] = useState([])
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        if (accessToken) {
+  useEffect(() => {
+    const fetchPosts = () => {
+      if (accessToken) {
         getPost({ accessToken })
-            .then((response) => {
+          .then((response) => {
             setPosts(response.data);
-            })
-            .catch((error) => {
+          })
+          .catch((error) => {
             console.log("Fetch post error: ", error);
-            });
-        }
-    }, [accessToken]);
+            console.log("Response Data: ", response.data);
+            if (error.response.status === 401 || error.response.status === 403) {
+              navigate("/")
+            }
+          });
+      }
+    }
+    
+    fetchPosts()
+
+    const refreshInterval = setInterval(() => {
+      fetchPosts()
+    }, 5000)
+
+    return () => clearInterval(refreshInterval)
+
+  }, [accessToken, navigate]);
     
     const submit = () => {
         createPost({ postContent, accessToken })
             .then(() => {
             return getPost({accessToken})
             })
-            .then(response => {
+            .then((response) => {
                 setPosts(response.data)
                 setPostContent("")
             })
-            .catch(error => {
-            console.log("Post creation error: ", error)
+            .catch((error) => {
+              console.log("Post creation error: ", error)
+              if (error.response.status === 401 || error.response.status === 403) {
+                navigate("/")
+              }
         })
     }
  
     return (
       <Box>
-        <Box display="flex" justifyContent="space-between" m={6}>
-          <Box className="splash-social">
+        <Box display="flex" justifyContent="space-between" m={4} mb="5rem">
+          <Box className="splash-social" mt={4}>
             <Heading fontSize="4rem">Splash</Heading>
             <Heading fontSize="4rem">Splash</Heading>
-          </Box>{" "}
-          <CgProfile size="3rem" color="white" />
+          </Box>
+          <IconButton
+            size="lg"
+            onClick={() => submit()}
+            bg="transparent"
+            _hover={{ bg: "#1E3A5F" }}
+          >
+            <CgProfile size="3rem" color="white" />
+          </IconButton>
         </Box>
         <Card bg="#2C5282" maxW="70%" mx="auto" mb="2rem" p={4}>
           <InputGroup>
