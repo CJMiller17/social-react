@@ -5,12 +5,19 @@ import { GiBigWave } from "react-icons/gi";
 import Post from "./Posts"
 import {
   Input,
+  Textarea,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   IconButton,
-  Heading,
   Box,
+  Card,
+  Heading,
 } from "@chakra-ui/react";
+import { RiImageAddFill } from "react-icons/ri";
+import { MdAddLocationAlt } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+
 
 export default function NewsFeed() {
     const { accessToken } = useContext(AuthContext)
@@ -45,22 +52,67 @@ export default function NewsFeed() {
  
     return (
       <Box>
-        <InputGroup m={10}>
-          <InputLeftElement h="100%" pb=".4em">
-            <IconButton size="lg" onClick={() => submit()} bg="#2C5282">
-              <GiBigWave color="white"/>
-            </IconButton>
-          </InputLeftElement>
-          <Input
-            m="1rem"
-            type="text"
-            variant="flushed"
-            onChange={(e) => setPostContent(e.target.value)}
-            value={postContent}
-            placeholder="Make a Ripple"
-            _placeholder={{ opacity: 1, color: "white", fontWeight: "bolder" }}
-          />
-        </InputGroup>
+        <Box display="flex" justifyContent="space-between" m={6}>
+          <Box className="splash-social">
+            <Heading fontSize="4rem">Splash</Heading>
+            <Heading fontSize="4rem">Splash</Heading>
+          </Box>{" "}
+          <CgProfile size="3rem" color="white" />
+        </Box>
+        <Card bg="#2C5282" maxW="70%" mx="auto" mb="2rem" p={4}>
+          <InputGroup>
+            <InputLeftElement h="100%">
+              <IconButton
+                size="lg"
+                onClick={() => submit()}
+                bg="#1E3A5F"
+                _hover={{ bg: "#79bbc8" }}
+                opacity="1"
+              >
+                <GiBigWave color="white" />
+              </IconButton>
+            </InputLeftElement>
+            <Textarea
+              ml="3.5rem"
+              variant="outline"
+              color="white"
+              pr="2.9rem"
+              rows={4}
+              onChange={(e) => setPostContent(e.target.value)}
+              value={postContent}
+              placeholder="Make a Ripple"
+              _placeholder={{
+                opacity: 1,
+                color: "white",
+                fontWeight: "bolder",
+              }}
+              resize="none"
+            />
+            <InputRightElement
+              display="flex"
+              flexDirection="column"
+              m={1}
+              height="80%"
+            >
+              <IconButton
+                size="lg"
+                bg="transparent"
+                _hover={{ bg: "#79bbc8" }}
+                opacity="1"
+                aria-label="Add Photo"
+                icon={<RiImageAddFill color="white" />}
+              />
+              <IconButton
+                size="lg"
+                bg="transparent"
+                _hover={{ bg: "#79bbc8" }}
+                opacity="1"
+                aria-label="Add Location"
+                icon={<MdAddLocationAlt color="white" />}
+              />
+            </InputRightElement>
+          </InputGroup>
+        </Card>
 
         {posts.map((post, index) => (
           <Post

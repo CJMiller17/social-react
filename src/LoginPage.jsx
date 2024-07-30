@@ -65,7 +65,11 @@ export default function Login() {
               _placeholder={{ opacity: 0.4, color: "#2C5282" }}
               _focus={{ color: "white" }}
             />
-            <InputRightElement width="4.5rem">
+            <InputRightElement
+              width="4.5rem"
+              display="flex"
+              height="100%"
+            >
               <Button h="1.75rem" size="sm" onClick={handleClick}>
                 {show ? "Hide" : "Show"}
               </Button>

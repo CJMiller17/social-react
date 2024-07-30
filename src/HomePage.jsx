@@ -28,8 +28,8 @@ const HomePage = () => {
           <Flex spacing="4">
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
               <Box className="splash-social">
-                <h2 fontSize="8rem">Splash</h2>
-                <h2 fontSize="8rem">Splash</h2>
+                <Heading fontSize="8rem">Splash</Heading>
+                <Heading fontSize="8rem">Splash</Heading>
               </Box>
             </Flex>
           </Flex>
