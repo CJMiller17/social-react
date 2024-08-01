@@ -18,6 +18,7 @@ const HomePage = () => {
       <Card
         boxShadow="dark-lg"
         maxW="md"
+        height="15rem"
         m="auto"
         mt="12rem"
         color="white"
@@ -34,7 +35,7 @@ const HomePage = () => {
             </Flex>
           </Flex>
         </CardHeader>
-        <CardBody>
+        <CardBody mt="4.5rem">
           <Text>The social media platform for all the fish in the sea</Text>
         </CardBody>
         <CardFooter
