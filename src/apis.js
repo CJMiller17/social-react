@@ -4,7 +4,7 @@ import axios from "axios"
 export const baseURL = "http://127.0.0.1:8000"
 
 export const getToken = ( { setAccessToken, username, password} ) => {
-    axios.post(`${baseURL}/token/`, {
+    return axios.post(`${baseURL}/token/`, {
         username: username,
         password: password
     }, {
@@ -13,7 +13,7 @@ export const getToken = ( { setAccessToken, username, password} ) => {
         }
     })
     .then(response => {
-        setAccessToken(response.data.access)
+        return setAccessToken(response.data.access)
     })
     .catch(error => {
         console.log("Token Error: ", error)    
@@ -79,11 +79,12 @@ export const getPost = async ({ accessToken }) => {
       }
     )
     .then((response) => {
-      console.log("Post have been gotten: ", response)
+      // console.log("Post have been gotten: ", response)
       return response
     })
     .catch((error) => {
       console.log("Get Post Error: ", error);
+      throw error
     });
 };
 

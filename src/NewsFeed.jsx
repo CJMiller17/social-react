@@ -25,23 +25,34 @@ export default function NewsFeed() {
     const [postContent, setPostContent] = useState("")
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
+  // const accessToken = localStorage.getItem("accessToken")
+  
+  const fetchPosts = () => {
+    console.log("Fetching")
+    if (accessToken) {
+      getPost({ accessToken })
+        .then((response) => {
+          console.log(response)
+          setPosts(response.data);
+        })
+        .catch((error) => {
+          console.log("Fetch post error: ", error);
+          // console.log("Response Data: ", response.data);
+          if (
+            error.response &&
+            (error.response.status === 401 || error.response.status === 403)
+          ) {
+            localStorage.removeItem("token");
+            setPosts([]);
+            navigate("/login");
+          }
+        });
+    } else {
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = () => {
-      if (accessToken) {
-        getPost({ accessToken })
-          .then((response) => {
-            setPosts(response.data);
-          })
-          .catch((error) => {
-            console.log("Fetch post error: ", error);
-            console.log("Response Data: ", response.data);
-            if (error.response.status === 401 || error.response.status === 403) {
-              navigate("/")
-            }
-          });
-      }
-    }
     
     fetchPosts()
 
@@ -53,21 +64,29 @@ export default function NewsFeed() {
 
   }, [accessToken, navigate]);
     
-    const submit = () => {
-        createPost({ postContent, accessToken })
-            .then(() => {
-            return getPost({accessToken})
-            })
-            .then((response) => {
-                setPosts(response.data)
-                setPostContent("")
-            })
-            .catch((error) => {
-              console.log("Post creation error: ", error)
-              if (error.response.status === 401 || error.response.status === 403) {
-                navigate("/")
-              }
-        })
+  const submit = () => {
+      
+    // if (!accessToken) {
+    //   navigate("/login")
+    //   return
+    // }
+
+      createPost({ postContent, accessToken })
+          .then(() => {
+          return getPost({accessToken})
+          })
+          .then((response) => {
+              setPosts(response.data)
+              setPostContent("")
+          })
+          .catch((error) => {
+            console.log("Post creation error: ", error)
+            if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+              localStorage.removeItem("token")
+              setPosts([])
+              navigate("/login")
+            }
+      })
     }
  
     return (
@@ -141,7 +160,7 @@ export default function NewsFeed() {
           </InputGroup>
         </Card>
 
-        {posts.map((post, index) => (
+        {posts ? posts.map((post, index) => (
           <Post
             key={index}
             username={post.profile.user.username}
@@ -154,7 +173,8 @@ export default function NewsFeed() {
             setPosts={setPosts}
             initialLiked={post.liked_posts.includes({ user: post.profile.id })}
           />
-        ))}
+        )) : <div>Poopy</div>
+        }
       </Box>
     );
 }

@@ -13,8 +13,9 @@ export default function Login() {
   const navigate = useNavigate()  
 
   const submit = () => {
-    getToken({ setAccessToken, username, password })
-        navigate("/newsfeed")
+    getToken({ setAccessToken, username, password }).then(
+      () => navigate("/newsfeed")
+    )
   }
   
   const [show, setShow] = useState(false);
